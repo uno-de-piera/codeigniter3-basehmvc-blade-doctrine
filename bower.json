@@ -1,0 +1,21 @@
+{
+  "name": "Base project",
+  "authors": [
+    "iparra <iparra@bcnbit.com>"
+  ],
+  "description": "Base project for codeigniter 3.0.x",
+  "main": "index.php",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}

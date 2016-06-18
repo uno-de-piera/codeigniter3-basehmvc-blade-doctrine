@@ -1,0 +1,386 @@
+
+<html>
+<head>
+    <title>App Name - Docs</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="text-muted text-center">Aplicación base Codeigniter 3.0.x</h1><br><br>
+
+    <div class="well well-lg">
+        <h4>Este proyecto parte con muchas herramientas para acelerar el desarrollo de cualquier proyecto con herramientas útiles.</h4><br>
+        <ul>
+            <li class="text-left">Blade, el motor de plantillas de Laravel.</li>
+            <li class="text-left">Doctrine, el ORM por excelencia de PHP, nos permite mapear la base de datos, realizar relaciones complejas, obtener datos de forma sencilla y todo sólo con php, no tenemos que hacer nada con sql.</li>
+            <li class="text-left">HMVC (Hierarchical model–view–controller), permite hacer aplicaciones escalables y ordenadas.</li>
+            <li class="text-left">Bower, un gestor de dependencias para la web que nos permite conseguir recursos actualizados de forma sencilla.</li>
+        </ul>
+
+        <br>
+        <h2>Instalación</h2>
+        <br>
+        <ul>
+            <li>git clone https://xp-dev.com/git/baseprojectcodeigniter nombreproyecto && cd nombreproyecto</li>
+            <li>composer install</li>
+            <li>bower install</li>
+            <li>Configurar los datos de conexión con la base de datos</li>
+            <li>Ejecutar vendor\bin\doctrine orm:schema-tool:create para crear las tablas users y posts a través de las entidades User y Post</li>
+            <li>Configurar el base_url</li>
+            <li>Acceder a tuproyecto/youarewelcome/docs</li>
+        </ul>
+    </div>
+    <br>
+    <h2>ORM Doctrine (<a href="http://docs.doctrine-project.org/projects/doctrine-orm/en/latest">Documentación</a>)</h2><br>
+
+    <p>Modelos ahora son entidades y están ubicados en: application/models/entities/</p>
+    <p>Repositorios extienden funcionalidad de entidades y están ubicados en: application/models/repositories/</p>
+
+    <p>Para ejecutar los siguientes comandos hay que estar situado dentro del proyecto desde la CLI</p>
+
+    <p>Crear tablas desde la cli en windows: vendor\bin\doctrine orm:schema-tool:create</p>
+    <p>Crear tablas desde la cli en mac: /Applications/MAMP/bin/php/php5.6.10/bin/php vendor/bin/doctrine orm:schema-tool:create</p>
+
+    <p>Hacer rollback en la base de datos en windows: vendor\bin\doctrine orm:schema-tool:drop --force</p>
+    <p>Hacer rollback en la base de datos en mac: /Applications/MAMP/bin/php/php5.6.10/bin/php vendor/bin/doctrine orm:schema-tool:drop --force</p>
+
+    <p>Actualizar las tablas desde la cli en windows: vendor\bin\doctrine orm:schema-tool:update --force</p>
+    <p>Actualizar las tablas desde la cli en mac: /Applications/MAMP/bin/php/php5.6.10/bin/php vendor/bin/doctrine orm:schema-tool:update --force</p>
+
+    <p>Si necesitas extender y/o configurar doctrine puedes hacerlo desde el archivo application/libraries/Doctrine.php</p>
+
+    <hr class="row">
+    <h2>HMVC (<a href="https://en.wikipedia.org/wiki/Hierarchical_model-view-controller">Wikipedia</a>)</h2><br>
+
+    <p>Un módulo es un componente con todas las herramientas necesarias, de base parten con controladores y vistas</p>
+
+    <p>Controladores ahora pertenecen a módulos: application/modules/name/controllers/, tenemos el ejemplo de youarewelcome</p>
+    <p>Vistas ahora pertenecen a módulos: application/modules/name/views/, tenemos el ejemplo de youarewelcome</p>
+    <hr class="row">
+
+    <h2>Blade (<a href="https://laravel.com/docs/5.1/blade">Documentación</a>)</h2><br>
+    <p>Blade es un motor de plantillas que cachea los archivos en html plano y hace más rápida la aplicación</p>
+
+    <hr class="row">
+
+    <h2>Bower (<a href="http://bower.io/">Documentación</a>)</h2><br>
+    <p>Para instalar bower ejecuta el siguiente comando en tu terminal, con -g se genera la variable de entorno y podemos utilizarlo desde cualquier aplicación.</p>
+    <pre>
+        npm install -g bower
+    </pre>
+    <p>Para instalar bootstrap con bower ejecuta el siguiente comando dentro de tu proyecto, con --save guardamos la referencia en bower.json</p>
+    <pre>
+        bower install bootstrap --save
+    </pre>
+
+    <hr class="row">
+
+    <h2>SQL para que las sesiones trabajen por base de datos</h2><br>
+
+    <pre>
+        CREATE TABLE IF NOT EXISTS `bb_sessions` (
+            `id` varchar(40) NOT NULL,
+            `ip_address` varchar(45) NOT NULL,
+            `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
+            `data` blob NOT NULL,
+            KEY `bb_sessions_timestamp` (`timestamp`)
+        );
+    </pre>
+    <hr class="row">
+    <h2>Enrutar módulos con HMVC</h2><br>
+
+    <p><b>Los módulos pueden ser enrutados de la misma forma que los controladores de siempre.</b></p><br>
+    <p>/custom_route   =>  application/modules/youarewelcome/controllers/YouAreWelcome.php/index (<a href="http://localhost:8888/projects/codeigniter/proyectobase/custom_route">Ejemplo</a>)</p>
+    <p>Definida en application/config/routes.php: $route['custom_route'] = 'youarewelcome/index';</p>
+    <hr class="row">
+
+    <h2>Perfilar la aplicación</h2><br>
+    <p>El controlador base ha sido extendido en application/core/BB_Controller.php y tiene una propiedad por defecto en false que nos permite hacer debug de forma básica estableciéndola a TRUE en cada controlador.</p>
+    <pre>
+        self::$profiler = TRUE; //habilitamos el profiler de la app en el controlador actual
+    </pre>
+
+    <h2>Instalar Bootstrap con SASS y Gulp</h2><br>
+
+    <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Mostrar
+    </button>
+    <div class="collapse" id="collapseExample">
+      <br>
+      <div class="">
+        <b>Requisitos:</b>
+        <ul>
+          <li>NodeJS y npm</li>
+          <li>Bower</li>
+        </ul>
+
+        <p>Crear las carpeta y el archivo "resources/sass/style.scss" en la raiz. Con este contenido:</p>
+        <pre>
+//Custom Font and Overwritting default bootstrap font
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,700);
+$font-family-base: 'Roboto', sans-serif;
+
+//Import Dependencies
+@import "bootstrap";
+@import "font-awesome";
+        </pre>
+
+        <b>gulpfile.js</b>
+        <pre>
+// Basic Gulp File
+//
+var gulp = require('gulp'),
+    sass = require('gulp-ruby-sass')
+    autoprefix = require('gulp-autoprefixer')
+    notify = require("gulp-notify")
+    bower = require('gulp-bower');
+
+var config = {
+    sassPath: './resources/sass',
+    bowerDir: './bower_components'
+}
+
+gulp.task('bower', function() {
+    return bower()
+        .pipe(gulp.dest(config.bowerDir))
+});
+
+gulp.task('icons', function() {
+    return gulp.src(config.bowerDir + '/fontawesome/fonts/**.*')
+        .pipe(gulp.dest('./public/fonts'));
+});
+
+gulp.task('css', function() {
+    return gulp.src(config.sassPath + '/style.scss')
+        .pipe(sass({
+            style: 'compressed',
+            loadPath: [
+                './resources/sass',
+                config.bowerDir + '/bootstrap-sass-official/assets/stylesheets',
+                config.bowerDir + '/fontawesome/scss',
+            ]
+        })
+        .on("error", notify.onError(function (error) {
+            return "Error: " + error.message;
+        })))
+        .pipe(autoprefix('last 2 version'))
+        .pipe(gulp.dest('./public/css'));
+});
+
+// Rerun the task when a file changes
+gulp.task('watch', function() {
+    gulp.watch(config.sassPath + '/**/*.scss', ['css']);
+});
+
+gulp.task('default', ['bower', 'icons', 'css']);
+        </pre>
+
+        <b>package.js</b>
+        <pre>
+{
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-notify": "^1.6.0",
+    "gulp-autoprefixer": "^1.0.0",
+    "gulp-bower": "0.0.6"
+  }
+}
+        </pre>
+
+        <b>bower.js</b>
+        <pre>
+{
+  "name": "project",
+  "version": "0.0.0",
+  "authors": [
+    "Alvaro Mara <me@example.org>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fontawesome": "~4.2.0",
+    "bootstrap-sass-official": "~3.2.0"
+  }
+}
+        </pre>
+
+        <b>Instalar dependencias</b><br>
+        <p>Ejecutar lo siguiente por linea de comandos en la raiz del proyecto:</p>
+
+        <pre>
+//Instala bootstrap y fontawesome
+bower install
+
+//Instala dependencias para compilar SASS
+npm install
+
+//Compila los ficheros SASS de bootstrap que están en 'bower_components/bootstrap-sass-official/assets' y el fichero externo en 'resources/sass/style.scss'
+gulp
+        </pre>
+
+        <b>Cambiar link a tu css ya compilado/minificado/concatenado</b><br>
+        <p>En las diferentes plantillas que tengas en el proyecto cambiar el link de bootstrap por 'public/css/style.css', que se creará una vez ejecutado el comando 'gulp'.</p>
+
+      </div>
+    </div>
+
+    <hr class="row">
+
+    <h2>Instalar Foundation con SASS y Gulp</h2><br>
+
+    <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseFoundation" aria-expanded="false" aria-controls="collapseFoundation">
+      Mostrar
+    </button>
+    <div class="collapse" id="collapseFoundation">
+      <br>
+      <div class="">
+        <b>Requisitos:</b>
+        <ul>
+          <li>NodeJS y npm</li>
+          <li>Bower</li>
+        </ul>
+
+        <p>Crear las carpeta y el archivo "resources/sass/style.scss" en la raiz. Con este contenido:</p>
+        <pre>
+//Custom Font and Overwritting default bootstrap font
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,700);
+$body-font-family: 'Roboto', sans-serif;
+
+//Import Dependencies
+@import '../../bower_components/foundation-sites/assets/foundation';
+@import "font-awesome";
+        </pre>
+
+        <b>gulpfile.js</b>
+        <pre>
+// Basic Gulp File
+//
+var gulp = require('gulp'),
+    sass = require('gulp-ruby-sass')
+    autoprefix = require('gulp-autoprefixer')
+    notify = require("gulp-notify")
+    bower = require('gulp-bower');
+
+var config = {
+    sassPath: './resources/sass',
+    bowerDir: './bower_components'
+}
+
+gulp.task('bower', function() {
+    return bower()
+        .pipe(gulp.dest(config.bowerDir))
+});
+
+gulp.task('icons', function() {
+    return gulp.src(config.bowerDir + '/fontawesome/fonts/**.*')
+        .pipe(gulp.dest('./public/fonts'));
+});
+
+gulp.task('css', function() {
+    return gulp.src(config.sassPath + '/style.scss')
+        .pipe(sass({
+            style: 'compressed',
+            loadPath: [
+                './resources/sass',
+                config.bowerDir + '/foundation-sites/scss',
+                config.bowerDir + '/fontawesome/scss',
+            ]
+        })
+        .on("error", notify.onError(function (error) {
+            return "Error: " + error.message;
+        })))
+        .pipe(autoprefix({
+            browsers: ['last 2 versions', 'ie >= 9']
+        }))
+        .pipe(gulp.dest('./public/css'));
+});
+
+// Rerun the task when a file changes
+gulp.task('watch', function() {
+    gulp.watch(config.sassPath + '/**/*.scss', ['css']);
+});
+
+gulp.task('default', ['bower', 'icons', 'css']);
+        </pre>
+
+        <b>package.js</b>
+        <pre>
+{
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-notify": "^1.6.0",
+    "gulp-autoprefixer": "^1.0.0",
+    "gulp-bower": "0.0.6"
+  }
+}
+        </pre>
+
+        <b>bower.js</b>
+        <pre>
+{
+  "name": "project",
+  "version": "0.0.0",
+  "authors": [
+    "Alvaro Mara <me@example.org>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fontawesome": "~4.2.0",
+    "foundation-sites": "~6.1.2"
+  }
+}
+        </pre>
+
+        <b>Instalar dependencias</b><br>
+        <p>Ejecutar lo siguiente por linea de comandos en la raiz del proyecto:</p>
+
+        <pre>
+//Instala Foundation y fontawesome
+bower install
+
+//Instala dependencias para compilar SASS
+npm install
+
+//Compila los ficheros SASS de Foundation que están en 'bower_components/foudnation-sites' y el fichero externo en 'resources/sass/style.scss'
+gulp
+        </pre>
+
+        <div class="alert alert-warning">
+          <b>Advertencia!</b><br>
+          <p>En la version 6.1.2 de Foundation parece ser que hay un error en el path de los estilos, si todo funciona correctamente no es necesario que cambies este fichero.</p>
+          <br>
+
+          <p>En el fichero 'bower_components/assets/foundation.scss' cambiar <b>"@import './scss/foundation';"</b> => <b>"@import '../scss/foundation';"</b></p>
+        </div>
+
+        <b>Cambiar link a tu css ya compilado/minificado/concatenado</b><br>
+        <p>En las diferentes plantillas que tengas en el proyecto cambiar el link de bootstrap por 'public/css/style.css', que se creará una vez ejecutado el comando 'gulp'.</p>
+
+      </div>
+    </div>
+
+    <hr class="row">
+</div>
+</body>
+</html>

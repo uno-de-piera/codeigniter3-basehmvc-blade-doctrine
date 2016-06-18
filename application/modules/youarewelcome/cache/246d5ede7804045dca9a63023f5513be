@@ -1,0 +1,103 @@
+<?php $__env->startSection('title', 'Docs'); ?>
+
+<?php $__env->startSection('sidebar'); ?>
+    @parent
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+    <h1 class="text-muted text-center">Aplicación base Codeigniter 3.0.x</h1><br><br>
+
+    <div class="well well-lg">
+        <h4>Este proyecto parte con muchas herramientas para acelerar el desarrollo de cualquier proyecto con herramientas útiles.</h4><br>
+        <ul>
+            <li class="text-left">Blade, el motor de plantillas de Laravel.</li>
+            <li class="text-left">Doctrine, el ORM por excelencia de PHP, nos permite mapear la base de datos, realizar relaciones complejas, obtener datos de forma sencilla y todo sólo con php, no tenemos que hacer nada con sql.</li>
+            <li class="text-left">HMVC (Hierarchical model–view–controller), permite hacer aplicaciones escalables y ordenadas.</li>
+            <li class="text-left">Bower, un gestor de dependencias para la web que nos permite conseguir recursos actualizados de forma sencilla.</li>
+        </ul>
+
+        <br>
+        <h2>Instalación</h2>
+        <br>
+        <ul>
+            <li>git clone https://xp-dev.com/git/baseprojectcodeigniter nombreproyecto && cd nombreproyecto</li>
+            <li>composer install</li>
+            <li>bower install</li>
+            <li>Configurar los datos de conexión con la base de datos</li>
+            <li>Ejecutar vendor\bin\doctrine orm:schema-tool:create para crear las tablas users y posts a través de las entidades User y Post</li>
+            <li>Configurar el base_url</li>
+            <li>Acceder a tuproyecto/youarewelcome/docs</li>
+        </ul>
+    </div>
+    <br>
+    <h2>ORM Doctrine (<a href="http://docs.doctrine-project.org/projects/doctrine-orm/en/latest">Documentación</a>)</h2><br>
+
+    <p>Modelos ahora son entidades y están ubicados en: application/models/entities/</p>
+    <p>Repositorios extienden funcionalidad de entidades y están ubicados en: application/models/repositories/</p>
+
+    <p>Para ejecutar los siguientes comandos hay que estar situado dentro del proyecto desde la CLI</p>
+
+    <p>Crear tablas desde la cli en windows: vendor\bin\doctrine orm:schema-tool:create</p>
+    <p>Crear tablas desde la cli en mac: /Applications/MAMP/bin/php/php5.6.10/bin/php vendor/bin/doctrine orm:schema-tool:create</p>
+
+    <p>Hacer rollback en la base de datos en windows: vendor\bin\doctrine orm:schema-tool:drop --force</p>
+    <p>Hacer rollback en la base de datos en mac: /Applications/MAMP/bin/php/php5.6.10/bin/php vendor/bin/doctrine orm:schema-tool:drop --force</p>
+
+    <p>Actualizar las tablas desde la cli en windows: vendor\bin\doctrine orm:schema-tool:update --force</p>
+    <p>Actualizar las tablas desde la cli en mac: /Applications/MAMP/bin/php/php5.6.10/bin/php vendor/bin/doctrine orm:schema-tool:update --force</p>
+
+    <p>Si necesitas extender y/o configurar doctrine puedes hacerlo desde el archivo application/libraries/Doctrine.php</p>
+
+    <hr class="row">
+    <h2>HMVC (<a href="https://en.wikipedia.org/wiki/Hierarchical_model-view-controller">Wikipedia</a>)</h2><br>
+
+    <p>Un módulo es un componente con todas las herramientas necesarias, de base parten con controladores y vistas</p>
+
+    <p>Controladores ahora pertenecen a módulos: application/modules/name/controllers/, tenemos el ejemplo de youarewelcome</p>
+    <p>Vistas ahora pertenecen a módulos: application/modules/name/views/, tenemos el ejemplo de youarewelcome</p>
+    <hr class="row">
+
+    <h2>Blade (<a href="https://laravel.com/docs/5.1/blade">Documentación</a>)</h2><br>
+    <p>Blade es un motor de plantillas que cachea los archivos en html plano y hace más rápida la aplicación</p>
+
+    <hr class="row">
+
+    <h2>Bower (<a href="http://bower.io/">Documentación</a>)</h2><br>
+    <p>Para instalar bower ejecuta el siguiente comando en tu terminal, con -g se genera la variable de entorno y podemos utilizarlo desde cualquier aplicación.</p>
+    <pre>
+        npm install -g bower
+    </pre>
+    <p>Para instalar bootstrap con bower ejecuta el siguiente comando dentro de tu proyecto, con --save guardamos la referencia en bower.json</p>
+    <pre>
+        bower install bootstrap --save
+    </pre>
+
+    <hr class="row">
+
+    <h2>SQL para que las sesiones trabajen por base de datos</h2><br>
+
+    <pre>
+        CREATE TABLE IF NOT EXISTS `bb_sessions` (
+            `id` varchar(40) NOT NULL,
+            `ip_address` varchar(45) NOT NULL,
+            `timestamp` int(10) unsigned DEFAULT 0 NOT NULL,
+            `data` blob NOT NULL,
+            KEY `bb_sessions_timestamp` (`timestamp`)
+        );
+    </pre>
+    <hr class="row">
+    <h2>Enrutar módulos con HMVC</h2><br>
+
+    <p><b>Los módulos pueden ser enrutados de la misma forma que los controladores de siempre.</b></p><br>
+    <p>/custom_route   =>  application/modules/youarewelcome/controllers/YouAreWelcome.php/index (<a href="http://localhost:8888/projects/codeigniter/proyectobase/custom_route">Ejemplo</a>)</p>
+    <p>Definida en application/config/routes.php: $route['custom_route'] = 'youarewelcome/index';</p>
+    <hr class="row">
+
+    <h2>Perfilar la aplicación</h2><br>
+    <p>El controlador base ha sido extendido en application/core/BB_Controller.php y tiene una propiedad por defecto en false que nos permite hacer debug de forma básica estableciéndola a TRUE en cada controlador.</p>
+    <pre>
+        self::$profiler = TRUE; //habilitamos el profiler de la app en el controlador actual
+    </pre>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
